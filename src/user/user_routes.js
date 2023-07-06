@@ -1,10 +1,11 @@
 import UserDB from "./user_db.js";
 
-function tryExecute(response, func)
+function executeAndRespond(response, func)
 {
     try
     {
-        func();
+        let result = func();
+        response.status(200).send(result);
     }
     catch(error)
     {
@@ -22,40 +23,24 @@ export default function (expressApp)
     //Create
     expressApp.post('/user', function (req, res) 
     {
-        tryExecute(res, () =>
-        {
-            let newUser = UserDB.add(req.body.name, req.body.email, req.body.password);
-            res.status(200).send(newUser);
-        });
+        executeAndRespond(res, () => UserDB.add(req.body.name, req.body.email, req.body.password));
     });
 
     //Delete
     expressApp.delete('/user/:id', function (req, res) 
     {
-        tryExecute(res, () =>
-        {
-            let oldUser = UserDB.remove(parseInt(req.params.id));
-            res.status(200).send(oldUser);
-        });
+        executeAndRespond(res, () => UserDB.remove(parseInt(req.params.id)));
     });
 
     //Read
     expressApp.get('/user/:id', function (req, res) 
     {
-        tryExecute(res, () =>
-        {
-            let user = UserDB.find(parseInt(req.params.id));
-            res.status(200).send(user);
-        });
+        executeAndRespond(res, () => UserDB.find(parseInt(req.params.id)));
     });
 
     //Update
     expressApp.put('/user/:id', function (req, res)
     {
-        tryExecute(res, () =>
-        {
-            let user = UserDB.update(parseInt(req.params.id), req.body.name, req.body.password);
-            res.status(200).send(user);
-        });
+        executeAndRespond(res, () => UserDB.update(parseInt(req.params.id), req.body.name, req.body.password));
     });
 }
