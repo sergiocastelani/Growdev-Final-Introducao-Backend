@@ -1,6 +1,6 @@
 import User from "./user.js";
 
-let userDB = [];
+let usersList = [];
 let nextID = 1;
 
 //class UserDB
@@ -11,7 +11,7 @@ export default class UserDB
     static add(name, email, password)
     {
         email = email.toLowerCase();
-        let existingUserId = userDB.findIndex((u) => u.email === email);
+        let existingUserId = usersList.findIndex((u) => u.email === email);
 
         if (existingUserId >= 0)
         {
@@ -20,7 +20,7 @@ export default class UserDB
         else
         {
             let newUser = new User(nextID++, name, email, password);
-            userDB.push(newUser);
+            usersList.push(newUser);
             return newUser;
         }
     }
@@ -29,12 +29,12 @@ export default class UserDB
     //returns the removed user
     static remove(id) 
     {
-        let existingUserId = userDB.findIndex((u) => u.id === id);
+        let existingUserId = usersList.findIndex((u) => u.id === id);
 
         if (existingUserId >= 0)
         {
-            let oldUser = userDB[existingUserId];
-            userDB.splice(existingUserId, 1);
+            let oldUser = usersList[existingUserId];
+            usersList.splice(existingUserId, 1);
             return oldUser;
         }
         else
@@ -46,15 +46,15 @@ export default class UserDB
     //finds an user in DB by ID
     static find(id)
     {
-        let existingUserId = userDB.findIndex((u) => u.id === id);
+        let existingUserId = usersList.findIndex((u) => u.id === id);
 
         if (existingUserId< 0)
         {
-            throw new Error("User not found");
+            throw new Error("User with id '" + id + "' not found");
         }
         else
         {
-            return userDB[existingUserId];;
+            return usersList[existingUserId];;
         }
     }
 
@@ -62,7 +62,7 @@ export default class UserDB
     //Undefined parameters are not updated.
     static update(id, name, password)
     {
-        let user = userDB.find((u) => u.id === id);
+        let user = usersList.find((u) => u.id === id);
 
         if (user)
         {
