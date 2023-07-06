@@ -8,4 +8,8 @@ app.use(express.urlencoded({ extended: true }));
 userRoutesConfig(app);
 messageRoutesConfig(app);
 
+app.get('/', (req, res) => {
+    res.send('Hey this is my API running 🥳');
+});
+
 app.listen(80);
