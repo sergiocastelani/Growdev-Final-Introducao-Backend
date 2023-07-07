@@ -43,4 +43,18 @@ export default function (expressApp)
     {
         executeAndRespond(res, () => UserDB.update(parseInt(req.params.id), req.body.name, req.body.password));
     });
+
+    //Login
+    expressApp.post('/user/login', function (req, res)
+    {
+        executeAndRespond(res, () => {
+            let user = UserDB.findByEmail(req.body.email);
+            if (user.password !== req.body.password)
+            {
+                throw new Error("Invalid password");
+            }
+
+            return `${user.name} logged in successfully`;
+        });
+    });
 }

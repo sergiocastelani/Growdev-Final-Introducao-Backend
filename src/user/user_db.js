@@ -58,6 +58,22 @@ export default class UserDB
         }
     }
 
+    //finds an user in DB by email
+    static findByEmail(email)
+    {
+        email = email.toLowerCase();
+        let existingUser = usersList.find((u) => u.email === email);
+
+        if (existingUser)
+        {
+            return existingUser;
+        }
+        else
+        {
+            throw new Error("User with email '" + email + "' not found");
+        }
+    }
+    
     //Updates user name and password.
     //Undefined parameters are not updated.
     static update(id, name, password)
