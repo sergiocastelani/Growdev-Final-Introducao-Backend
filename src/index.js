@@ -6,15 +6,18 @@ import messageRoutesConfig from './message/message_routes.js';
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 
+//create routes
 userRoutesConfig(app);
 messageRoutesConfig(app);
 
+//read the config file for Postman
 let postmanConfig = '';
 readFile("postman_collection.json", 'utf8', (err, data) => {
     if (err) throw err;
     postmanConfig = data;
 });
 
+//home route
 app.get('/', (req, res) => {
 
     res.send(`

@@ -1,15 +1,15 @@
 import MessageDB from "./message_db.js";
 
-function executeAndRespond(response, func)
+function executeAndRespond(responseObj, func)
 {
     try
     {
         let result = func();
-        response.status(200).send(result);
+        responseObj.status(200).send(result);
     }
     catch(error)
     {
-        response.status(400).send(error.message);
+        responseObj.status(400).send(error.message);
     }
 }
 
