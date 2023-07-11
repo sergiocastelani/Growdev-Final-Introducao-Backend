@@ -21,11 +21,16 @@ readFile("postman_collection.json", 'utf8', (err, data) => {
 app.get('/', (req, res) => {
 
     res.send(`
+<html>
+<head>
+    <title>API Recados</title>
+</head>
 <h1>Hey this is my API running 🥳</h1>
 <p>Use the Postman config bellow to test this API</p>
 <pre style="background-color: #f5f5f5; padding: 10px; border: 1px solid #000">
 ${postmanConfig}
 </pre>
+</html>
     `);
 
 });
