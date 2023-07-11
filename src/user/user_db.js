@@ -95,6 +95,11 @@ export default class UserDB
             throw new Error("User not found");
         }
     }
+
+    static all()
+    {
+        return usersList;
+    }
 }
 
 //fill DB with some data

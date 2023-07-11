@@ -44,6 +44,12 @@ export default function (expressApp)
         executeAndRespond(res, () => UserDB.update(parseInt(req.params.id), req.body.name, req.body.password));
     });
 
+    //Read All
+    expressApp.get('/users', function (req, res) 
+    {
+        executeAndRespond(res, () => UserDB.all());
+    });
+
     //Login
     expressApp.post('/user/login', function (req, res)
     {
