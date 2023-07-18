@@ -1,4 +1,7 @@
 import MessageDB from "./message_db.js";
+import { Router } from "express";
+
+export const messageRouter = Router();
 
 function executeAndRespond(responseObj, func)
 {
@@ -13,40 +16,36 @@ function executeAndRespond(responseObj, func)
     }
 }
 
-//module function that configs all Message routes
-export default function (expressApp)
+//--
+// Message CRUD
+//--
+
+//Create
+messageRouter.post('/message', function (req, res) 
 {
-    //--
-    // Message CRUD
-    //--
+    executeAndRespond(res, () => MessageDB.add(parseInt(req.body.userId), req.body.title, req.body.description));
+});
 
-    //Create
-    expressApp.post('/message', function (req, res) 
-    {
-        executeAndRespond(res, () => MessageDB.add(parseInt(req.body.userId), req.body.title, req.body.description));
-    });
+//Read specific message
+messageRouter.get('/message/:id', function (req, res) 
+{
+    executeAndRespond(res, () => MessageDB.find(parseInt(req.params.id)));
+});
 
-    //Read specific message
-    expressApp.get('/message/:id', function (req, res) 
-    {
-        executeAndRespond(res, () => MessageDB.find(parseInt(req.params.id)));
-    });
+//Read all user messages
+messageRouter.get('/user_messages/:userId', function (req, res) 
+{
+    executeAndRespond(res, () => MessageDB.findAll(parseInt(req.params.userId)));
+});
 
-    //Read all user messages
-    expressApp.get('/user_messages/:userId', function (req, res) 
-    {
-        executeAndRespond(res, () => MessageDB.findAll(parseInt(req.params.userId)));
-    });
-    
-    //Update
-    expressApp.put('/message/:id', function (req, res)
-    {
-        executeAndRespond(res, () => MessageDB.update(parseInt(req.params.id), req.body.title, req.body.description));
-    });
+//Update
+messageRouter.put('/message/:id', function (req, res)
+{
+    executeAndRespond(res, () => MessageDB.update(parseInt(req.params.id), req.body.title, req.body.description));
+});
 
-    //Delete
-    expressApp.delete('/message/:id', function (req, res) 
-    {
-        executeAndRespond(res, () => MessageDB.remove(parseInt(req.params.id)));
-    });
-}
+//Delete
+messageRouter.delete('/message/:id', function (req, res) 
+{
+    executeAndRespond(res, () => MessageDB.remove(parseInt(req.params.id)));
+});

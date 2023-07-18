@@ -1,14 +1,12 @@
 import express from 'express';
 import { readFile } from 'fs';
-import userRoutesConfig from './user/user_routes.js';
-import messageRoutesConfig from './message/message_routes.js';
+import { userRouter } from './user/user_routes.js';
+import { messageRouter } from './message/message_routes.js';
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
-
-//create routes
-userRoutesConfig(app);
-messageRoutesConfig(app);
+app.use(userRouter);
+app.use(messageRouter);
 
 //read the config file for Postman
 let postmanConfig = '';
