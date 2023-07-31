@@ -5,8 +5,16 @@ import { messageRouter } from './message/message_routes.js';
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(userRouter);
 app.use(messageRouter);
+
+app.all('/', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next()
+  });
+
 
 //read the config file for Postman
 let postmanConfig = '';
