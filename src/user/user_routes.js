@@ -60,6 +60,6 @@ userRouter.post('/user/login', function (req, res)
             throw new Error("Invalid password");
         }
 
-        return `${user.name} logged in successfully`;
+        return user;
     });
 });
