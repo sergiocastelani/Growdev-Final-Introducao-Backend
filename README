@@ -1,1 +1,7 @@
 Final project for the module "Backend Introduction" of the course "Starter Fullstack Developer" from Growdev
+
+Use:
+ - npm install
+ - npm start
+ - check the root page "http://localhost/"
+
