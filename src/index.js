@@ -18,29 +18,30 @@ app.use(function(req, res, next) {
 app.use(userRouter);
 app.use(messageRouter);
 
-//read the config file for Postman
-let postmanConfig = '';
-readFile("postman_collection.json", 'utf8', (err, data) => {
-    if (err) throw err;
-    postmanConfig = data;
-});
-
 //home route
 app.get('/', (req, res) => {
-
     res.send(`
 <html>
 <head>
     <title>API Recados</title>
 </head>
 <h1>Hey this is my API running 🥳</h1>
-<p>Use the Postman config bellow to test this API</p>
-<pre style="background-color: #f5f5f5; padding: 10px; border: 1px solid #000">
-${postmanConfig}
-</pre>
+<p>Download <a href="/postman_config">this Postman config file</a> to test this API</p>
 </html>
     `);
-
 });
 
-app.listen(80);
+//postman config file
+app.get('/postman_config', (req, res) => {
+    readFile('./postman_collection.json', 'utf8', (err, data) => {
+        if (err) {
+            res.send(err);
+            return;
+        }
+        res.send(data);
+    });
+});
+
+app.listen(80, function(){
+    console.log('Server is running on port 80');
+});
