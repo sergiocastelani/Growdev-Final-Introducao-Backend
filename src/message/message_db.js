@@ -47,8 +47,7 @@ export default class MessageDB
     //returns an array
     static findAll(userId)
     {
-        let messages = messagesList.filter((message) => message.userId === userId);
-        return messages;
+        return messagesList.filter((message) => message.userId === userId);
     }
 
     //Updates a message data
@@ -69,3 +68,12 @@ export default class MessageDB
 
 //fill DB with some data
 MessageDB.add(1, "Wellcome John Doe", "We wellcome you with this first message");
+MessageDB.add(1, "John Doe message 2", "This is the second message of John Doe");
+MessageDB.add(1, "John Doe message 3", "This is the third message of John Doe");
+MessageDB.add(1, "John Doe message 4", "This is the fourth message of John Doe");
+MessageDB.add(1, "John Doe message 5", "This is the fifth message of John Doe");
+MessageDB.add(1, "John Doe message 6", "This is the sixth message of John Doe");
+MessageDB.add(1, "John Doe message 7", "This is the seventh message of John Doe");
+MessageDB.add(1, "John Doe message 8", "This is the eighth message of John Doe");
+MessageDB.add(1, "John Doe message 9", "This is the ninth message of John Doe");
+MessageDB.add(1, "John Doe message 10", "This is the tenth message of John Doe");

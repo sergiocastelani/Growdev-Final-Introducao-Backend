@@ -35,7 +35,30 @@ messageRouter.get('/message/:id', function (req, res)
 //Read all user messages
 messageRouter.get('/user_messages/:userId', function (req, res) 
 {
-    executeAndRespond(res, () => MessageDB.findAll(parseInt(req.params.userId)));
+    executeAndRespond(res, () => {
+        let messages = MessageDB.findAll(parseInt(req.params.userId));
+
+        const messagesPerPage = 5;
+        let lastPage = Math.ceil(messages.length / messagesPerPage);
+        let page = parseInt(req.query.page);
+        if (!page || page > lastPage || page < 1)
+            throw new Error(`Bad page number. Valid range is [1 - ${lastPage}]`);
+
+        let startIndex = (page - 1) * messagesPerPage;
+        let endIndex = startIndex + messagesPerPage;
+
+        let messagesPage = messages.filter((message, index) => index >= startIndex && index < endIndex);
+
+        return {
+            info: {
+                total: messages.length,
+                page: page,
+                prevPage: page > 1 ? page - 1 : null,
+                nextPage: endIndex < messages.length ? page + 1 : null
+            },
+            messages: messagesPage,
+        };
+    });
 });
 
 //Update

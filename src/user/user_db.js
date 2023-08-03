@@ -103,4 +103,4 @@ export default class UserDB
 }
 
 //fill DB with some data
-UserDB.add("John Doe", "xxx@xxxx.com", "password");
+UserDB.add("John Doe", "admin@admin.com", "admin");

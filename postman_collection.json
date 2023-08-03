@@ -209,19 +209,13 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "email",
-									"value": "xxx@xxxx.com",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "password",
-									"type": "text"
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@admin.com\",\r\n    \"password\":\"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							]
+							}
 						},
 						"url": {
 							"raw": "{{url}}/user/login",
@@ -335,13 +329,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/user_messages/1",
+							"raw": "{{url}}/user_messages/1?page=1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"user_messages",
 								"1"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
 							]
 						}
 					},
