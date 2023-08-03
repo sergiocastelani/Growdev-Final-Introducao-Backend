@@ -40,7 +40,7 @@ messageRouter.get('/user_messages/:userId', function (req, res)
 
         const messagesPerPage = 5;
         let lastPage = Math.ceil(messages.length / messagesPerPage);
-        let page = parseInt(req.query.page);
+        let page = parseInt(req.query.page || 1);
         if (!page || page > lastPage || page < 1)
             throw new Error(`Bad page number. Valid range is [1 - ${lastPage}]`);
 
